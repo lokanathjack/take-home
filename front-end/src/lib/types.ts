@@ -1,3 +1,5 @@
+// Shared types for the frontend, adapted from backend/src/types.ts
+
 export interface User {
     id: string;
     name: string;
@@ -15,19 +17,20 @@ export interface Attendee {
     email?: string;
 }
 
+export interface EventAttendee {
+    id: string;
+    attendee: Attendee;
+    rsvpStatus: 'yes' | 'no' | 'maybe' | 'pending';
+}
+
 export interface Event {
     id: string;
     title: string;
     date: string; // ISO date string
-    createdBy: string; // User ID
-    tagIds: string[]; // Tag IDs
-}
-
-export interface EventAttendee {
-    id: string;
-    eventId: string;
-    attendeeId: string;
-    rsvpStatus: 'yes' | 'no' | 'maybe';
+    createdBy: User;
+    tags: Tag[];
+    attendees: EventAttendee[];
+    attendeeCount: number;
 }
 
 export interface CreateEventInput {
@@ -46,5 +49,5 @@ export interface AddAttendeeInput {
 export interface SetRSVPInput {
     eventId: string;
     attendeeId: string;
-    rsvpStatus: 'yes' | 'no' | 'maybe';
+    rsvpStatus: 'yes' | 'no' | 'maybe' | 'pending';
 } 
